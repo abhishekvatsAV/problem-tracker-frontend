@@ -1,0 +1,25 @@
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 800px;
+  margin: 20px;
+}
+
+.cardHead {
+  display: flex;
+  justify-content: space-between;
+}
+
+.cardHead a {
+  color: black;
+  font-weight: bold;
+}
+
+.cardItems {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card-text {
+  display: inline-block;
+  flex: 0 0 50%;
+}

@@ -1,0 +1,26 @@
+.problemsPg {
+  height: 100vh;
+  background: #f0ebe3;
+  padding: 5%;
+}
+
+.probGrid {
+  max-width: 900px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.probGrid > div:nth-child(1) {
+  background: #7d9d9c;
+  text-align: center;
+  padding: 10px;
+  color: #000;
+}
+
+.probGrid > div:nth-child(4) {
+  background: #7d9d9c;
+  grid-column: 1 / span 3;
+  height: 70vh;
+  overflow-x: auto;
+}

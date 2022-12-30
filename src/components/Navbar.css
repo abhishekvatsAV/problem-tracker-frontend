@@ -1,0 +1,19 @@
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #576F72;
+  color: #fff;
+  padding: 20px;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 18px;
+  padding: 10px;
+}
+
+nav a:hover {
+  background-color: #7D9D9C;
+}

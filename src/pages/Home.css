@@ -1,0 +1,57 @@
+.Home {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  height: 100vh;
+}
+
+.Home .solvedProblems {
+  background: #f0ebe3;
+}
+
+.Home .addProblem {
+  background: #e4dccf;
+}
+
+.Home form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  margin-right: 20px;
+  padding: 30px;
+}
+
+.Home form label {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+}
+
+.Home form button,
+.helpTaken {
+  margin: 10px;
+}
+
+.dateSelection {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px;
+  box-sizing: border-box;
+  padding: 20px;
+}
+
+.dateSelection span {
+  width: 180px;
+}
+
+.dateSelection span {
+  color: grey;
+}
+
+.problems h3 {
+  color: #7d9d9c;
+}
+
+.deleteProblem {
+  cursor: pointer;
+}
