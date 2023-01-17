@@ -12,11 +12,23 @@ const Problems = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
   const [rerender, setRerender] = useState(false);
 
+  let user = localStorage.getItem("user");
+  user = JSON.parse(user);
+
   const handleDelete = async (link) => {
     try {
-      await axios.post(`${apiUrl}/problems/deleteProblem`, {
-        link,
-      });
+      await axios.post(
+        `${apiUrl}/problems/deleteProblem`,
+        {
+          link,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
       rerender ? setRerender(false) : setRerender(true);
     } catch (error) {
       console.log("error : ", error);
@@ -25,17 +37,32 @@ const Problems = () => {
 
   useEffect(() => {
     const getAllProb = async () => {
-      const res = await axios.get(`${apiUrl}/problems/getAllProblems`);
+      const res = await axios.get(`${apiUrl}/problems/getAllProblems`, {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${user.token}`,
+        },
+      });
       setAllProblems([...res.data]);
     };
 
     const helpProblems = async () => {
-      const res = await axios.get(`${apiUrl}/problems/withHelp`);
+      const res = await axios.get(`${apiUrl}/problems/withHelp`, {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${user.token}`,
+        },
+      });
       setHelpUsedProb([...res.data]);
     };
 
     const withoutHelpProblems = async () => {
-      const res = await axios.get(`${apiUrl}/problems/withoutHelp`);
+      const res = await axios.get(`${apiUrl}/problems/withoutHelp`, {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${user.token}`,
+        },
+      });
       setWoHelpProb([...res.data]);
     };
 

@@ -4,6 +4,7 @@ import DatePicker from "react-datepicker";
 import axios from "axios";
 import { MdDelete } from "react-icons/md";
 import Problem from "../components/Problem";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [link, setLink] = useState("");
@@ -13,6 +14,21 @@ const Home = () => {
   const [problemArr, setProblemArr] = useState([]);
   const apiUrl = process.env.REACT_APP_API_URL;
   const today = new Date();
+  let user = localStorage.getItem("user");
+  user = JSON.parse(user);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const check = () => {
+      if (!localStorage.getItem("user")) {
+        navigate("/login");
+      } else {
+        user = localStorage.getItem("user");
+        user = JSON.parse(user);
+      }
+    };
+    check();
+  }, []);
 
   // to get all the probles done on selectedDate
   const handleProblems = async () => {
@@ -20,7 +36,13 @@ const Home = () => {
     console.log("start date", date);
     try {
       const response = await axios.get(
-        `${apiUrl}/problems/findbydate?date=${date}`
+        `${apiUrl}/problems/findbydate?date=${date}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${user.token}`,
+          },
+        }
       );
       console.log("response Data : ", response.data);
       setProblemArr(response.data);
@@ -43,7 +65,12 @@ const Home = () => {
     };
 
     try {
-      const response = await axios.post(`${apiUrl}/problems/create`, ques);
+      const response = await axios.post(`${apiUrl}/problems/create`, ques, {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${user.token}`,
+        },
+      });
       const data = response.data;
       handleProblems();
     } catch (err) {
@@ -58,9 +85,16 @@ const Home = () => {
 
   const handleDelete = async (link) => {
     try {
-      await axios.post(`${apiUrl}/problems/deleteProblem`, {
-        link,
-      });
+      await axios.post(
+        `${apiUrl}/problems/deleteProblem`,
+        { link },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
       handleProblems();
     } catch (error) {
       console.log("error : ", error);
@@ -86,7 +120,7 @@ const Home = () => {
           <h3>Solved Problems</h3>
           <>
             {problemArr.map((problem, i) => (
-              <Problem problem={problem} handleDelete = {handleDelete} />
+              <Problem problem={problem} handleDelete={handleDelete} />
             ))}
           </>
         </div>

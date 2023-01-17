@@ -16,11 +16,18 @@ const Dashboard = () => {
   const [todayProblems, setTodayProblems] = useState([]);
   const [monthProblems, setMonthProblems] = useState([]);
   const [weekProblems, setWeekProblems] = useState([]);
+  let user = localStorage.getItem("user");
+  user = JSON.parse(user);
 
   useEffect(() => {
     const heatmapCalendarDataGen = async () => {
       try {
-        const response = await axios.get(`${apiUrl}/problems/yeardata`);
+        const response = await axios.get(`${apiUrl}/problems/yeardata`, {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${user.token}`,
+          },
+        });
         setHeatmapCalendarData([...response.data]);
         console.log("response", response.data);
       } catch (error) {
@@ -30,9 +37,24 @@ const Dashboard = () => {
 
     const bargraph = async () => {
       try {
-        const res1 = await axios(`${apiUrl}/problems/hard`);
-        const res2 = await axios(`${apiUrl}/problems/medium`);
-        const res3 = await axios(`${apiUrl}/problems/easy`);
+        const res1 = await axios(`${apiUrl}/problems/hard`, {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${user.token}`,
+          },
+        });
+        const res2 = await axios(`${apiUrl}/problems/medium`, {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${user.token}`,
+          },
+        });
+        const res3 = await axios(`${apiUrl}/problems/easy`, {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${user.token}`,
+          },
+        });
         setHardProblems([...res1.data]);
         setMediumPoblems([...res2.data]);
         setEasyProblems([...res3.data]);
@@ -42,7 +64,12 @@ const Dashboard = () => {
     };
 
     const getAllProblems = async () => {
-      const problems = await axios(`${apiUrl}/problems/getAllProblems`);
+      const problems = await axios(`${apiUrl}/problems/getAllProblems`, {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${user.token}`,
+        },
+      });
       setAllProblems([...problems.data]);
     };
 
@@ -50,7 +77,13 @@ const Dashboard = () => {
       let date = today.toLocaleDateString();
       try {
         const response = await axios.get(
-          `${apiUrl}/problems/findbydate?date=${date}`
+          `${apiUrl}/problems/findbydate?date=${date}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              authorization: `Bearer ${user.token}`,
+            },
+          }
         );
         setTodayProblems([...response.data]);
       } catch (err) {
@@ -60,7 +93,12 @@ const Dashboard = () => {
 
     const monthProb = async () => {
       try {
-        let monthPrb = await axios.get(`${apiUrl}/problems/month`);
+        let monthPrb = await axios.get(`${apiUrl}/problems/month`, {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${user.token}`,
+          },
+        });
         setMonthProblems([...monthPrb.data]);
       } catch (err) {
         console.log(err);
@@ -69,7 +107,12 @@ const Dashboard = () => {
 
     const weekProb = async () => {
       try {
-        let weekPrb = await axios.get(`${apiUrl}/problems/week`);
+        let weekPrb = await axios.get(`${apiUrl}/problems/week`, {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${user.token}`,
+          },
+        });
         setWeekProblems([...weekPrb.data]);
       } catch (err) {
         console.log(err);
