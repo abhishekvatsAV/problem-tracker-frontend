@@ -22,11 +22,10 @@ const useSignup = () => {
     }
     if (response.status === 200) {
       localStorage.setItem("user", JSON.stringify(response.data));
-      console.log(" succsess ....");
       setIsLoading(false);
     }
   };
-  return { signup, isLoading, error };
+  return { signup, isLoading, error, setError };
 };
 
 export default useSignup;

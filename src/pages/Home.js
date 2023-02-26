@@ -1,10 +1,9 @@
 import "./Home.css";
 import { useEffect, useState } from "react";
-import DatePicker from "react-datepicker";
 import axios from "axios";
-import { MdDelete } from "react-icons/md";
 import Problem from "../components/Problem";
 import { useNavigate } from "react-router-dom";
+import { DatePicker } from "antd";
 
 const Home = () => {
   const [link, setLink] = useState("");
@@ -17,6 +16,7 @@ const Home = () => {
   let user = localStorage.getItem("user");
   user = JSON.parse(user);
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const check = () => {
@@ -33,7 +33,6 @@ const Home = () => {
   // to get all the probles done on selectedDate
   const handleProblems = async () => {
     let date = selectedDate.toLocaleDateString();
-    console.log("start date", date);
     try {
       const response = await axios.get(
         `${apiUrl}/problems/findbydate?date=${date}`,
@@ -44,7 +43,6 @@ const Home = () => {
           },
         }
       );
-      console.log("response Data : ", response.data);
       setProblemArr(response.data);
     } catch (err) {
       console.log(err);
@@ -53,7 +51,6 @@ const Home = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(e.target);
     let ques = {
       date: selectedDate.toLocaleDateString(),
       name: e.target.name.value,
@@ -77,7 +74,6 @@ const Home = () => {
       console.log(err);
     }
 
-    console.log(ques);
     setLink("");
     setHelpUsed(false);
     setName("");
@@ -85,6 +81,7 @@ const Home = () => {
 
   const handleDelete = async (link) => {
     try {
+      setIsLoading(true);
       await axios.post(
         `${apiUrl}/problems/deleteProblem`,
         { link },
@@ -95,6 +92,7 @@ const Home = () => {
           },
         }
       );
+      setIsLoading(false);
       handleProblems();
     } catch (error) {
       console.log("error : ", error);
@@ -105,27 +103,38 @@ const Home = () => {
     handleProblems();
   }, [selectedDate]);
 
+  const onChange = (date, dateString) => {
+    // console.log(date.$d, dateString);
+    setselectedDate(date.$d);
+  };
+
   return (
     <div className="Home">
-      <div className="solvedProblems">
+      <div className="problemSection">
         <div className="dateSelection">
-          <span>Select Date :</span>
-          <DatePicker
-            maxDate={today} // Set the maximum selectable date to the current date
-            selected={selectedDate}
-            onChange={(date) => setselectedDate(date)}
-          />
+          <span>
+            Select <span>Date </span>:{" "}
+          </span>
+          <DatePicker onChange={onChange} className="datePicker" />
         </div>
-        <div className="problems">
-          <h3>Solved Problems</h3>
+        <div className="solvedProb">
+          <div className="solved_box">
+            <h3>
+              Solved <span>Problems</span>{" "}
+            </h3>
+          </div>
           <>
             {problemArr.map((problem, i) => (
-              <Problem problem={problem} handleDelete={handleDelete} />
+              <Problem
+                problem={problem}
+                handleDelete={handleDelete}
+                isLoading={isLoading}
+              />
             ))}
           </>
         </div>
       </div>
-      <div className="addProblem">
+      <div className="probForm">
         <form onSubmit={handleSubmit}>
           <label className="form-label">
             Name:

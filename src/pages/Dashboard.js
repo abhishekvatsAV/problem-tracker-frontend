@@ -1,9 +1,10 @@
-import React, { useEffect, useState, useSyncExternalStore } from "react";
+import React, { useEffect, useState } from "react";
 import "./Dashboard.css";
 import { BarList, BarListSeries } from "reaviz";
 import axios from "axios";
 import CalendarHeatmap from "react-calendar-heatmap";
 import ReactTooltip from "react-tooltip";
+import { LoadingOutlined } from "@ant-design/icons";
 
 const Dashboard = () => {
   const today = new Date();
@@ -16,20 +17,24 @@ const Dashboard = () => {
   const [todayProblems, setTodayProblems] = useState([]);
   const [monthProblems, setMonthProblems] = useState([]);
   const [weekProblems, setWeekProblems] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
   let user = localStorage.getItem("user");
   user = JSON.parse(user);
 
   useEffect(() => {
     const heatmapCalendarDataGen = async () => {
       try {
+        setIsLoading(true);
         const response = await axios.get(`${apiUrl}/problems/yeardata`, {
           headers: {
             "Content-Type": "application/json",
             authorization: `Bearer ${user.token}`,
           },
         });
+        setIsLoading(false);
         setHeatmapCalendarData([...response.data]);
-        console.log("response", response.data);
+        // console.log("response", response.data);
       } catch (error) {
         console.log(error);
       }
@@ -127,7 +132,12 @@ const Dashboard = () => {
     weekProb();
   }, []);
 
-  // console.log("heatmapData: ", heatmapCalendarData);
+  // values={[
+  //   { date: '2016-01-01', count: 12 },
+  //   { date: '2016-01-22', count: 122 },
+  //   { date: '2016-01-30', count: 38 },
+  //   // ...and so on
+  // ]}
 
   function shiftDate(date, numDays) {
     const newDate = new Date(date);
@@ -140,32 +150,40 @@ const Dashboard = () => {
       <div className="flexBox">
         <div className="heatMap">
           <h3>Year Overview</h3>
-          <CalendarHeatmap
-            startDate={shiftDate(today, -364)}
-            endDate={today}
-            values={heatmapCalendarData}
-            classForValue={(value) => {
-              if (!value) {
-                return "color-empty";
-              }
-              return `color-github-${value.count}`;
-            }}
-            tooltipDataAttrs={(value) => {
-              const date = new Date(value.date);
-              const formattedDate = `${date.getDate()}/${
-                date.getMonth() + 1
-              }/${date.getFullYear()}`;
-              // formattedDate will be '25/12/2022'
-              return {
-                "data-tip": `${formattedDate} has count: ${value.count}`,
-              };
-            }}
-            showWeekdayLabels={true}
-            onClick={(value) =>
-              alert(`Clicked on value with count: ${value.count}`)
-            }
-          />
-          <ReactTooltip />
+          {!isLoading ? (
+            <>
+              <CalendarHeatmap
+                startDate={shiftDate(today, -364)}
+                endDate={today}
+                values={heatmapCalendarData}
+                classForValue={(value) => {
+                  if (!value) {
+                    return "color-empty";
+                  }
+                  return `color-github-${value.count}`;
+                }}
+                tooltipDataAttrs={(value) => {
+                  const date = new Date(value.date);
+                  const formattedDate = `${date.getDate()}/${
+                    date.getMonth() + 1
+                  }/${date.getFullYear()}`;
+                  // formattedDate will be '25/12/2022'
+                  return {
+                    "data-tip": `${formattedDate} has count: ${value.count}`,
+                  };
+                }}
+                showWeekdayLabels={true}
+                onClick={(value) =>
+                  alert(`Clicked on value with count: ${value.count}`)
+                }
+              />
+              <ReactTooltip />
+            </>
+          ) : (
+            <div className="loadHeatMap">
+              <LoadingOutlined />
+            </div>
+          )}
         </div>
         <div className="details">
           <div className="item">

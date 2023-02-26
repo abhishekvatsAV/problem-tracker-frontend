@@ -1,7 +1,10 @@
 .problemsPg {
-  height: 100vh;
-  background: #f0ebe3;
+  background: #222831;
+  color: #eeeeee;
   padding: 5%;
+  padding-top: 100px;
+  height: 100%;
+  overflow: hidden;
 }
 
 .probGrid {
@@ -9,18 +12,57 @@
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  color: #eeeeee;
+}
+
+.probGrid > div:nth-child(n) {
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: 6px;
+  text-align: center;
+  padding: 10px;
 }
 
 .probGrid > div:nth-child(1) {
-  background: #7d9d9c;
-  text-align: center;
-  padding: 10px;
-  color: #000;
+  cursor: pointer;
+  padding: 25px;
+}
+.probGrid > div:nth-child(2) {
+  cursor: pointer;
+}
+.probGrid > div:nth-child(3) {
+  cursor: pointer;
 }
 
 .probGrid > div:nth-child(4) {
-  background: #7d9d9c;
   grid-column: 1 / span 3;
   height: 70vh;
   overflow-x: auto;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: 6px;
+}
+
+/* to hide the scrollbar */
+/* .probGrid > div:nth-child(4)::-webkit-scrollbar {
+  display: none;
+} */
+
+.flex_prob {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.flex_prob Input {
+  margin: 20px;
+  width: 200px;
+}
+
+.btnBtn {
+  outline: none;
+  box-shadow: none;
+}
+.btnBtn:focus {
+  outline: none;
+  box-shadow: none;
 }

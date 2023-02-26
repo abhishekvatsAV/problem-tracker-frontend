@@ -1,22 +1,25 @@
 .dashBoard {
-  height: 100vh;
-  background-color: #E4DCCF;
+  background-color: #222831;
+  padding: 87px;
+  color: #eeeeee;
 }
 
 .flexBox {
   display: flex;
   flex-direction: column;
-  max-width: 1000px;
-  justify-content: center;
-  padding: 4%;
+  margin: 4%;
+  gap: 20px;
 }
 
 .details {
   display: grid;
   grid-template-rows: repeat(2, 1fr);
   grid-template-columns: repeat(2, 1fr);
-  margin: 20px;
-  margin-bottom: 70px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  width: 80%;
+  padding: 20px;
+  background-color: #393e46;
+  border-radius: 6px;
 }
 
 .details .item {
@@ -27,6 +30,23 @@
   color: gray;
 }
 
+.heatMap {
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  background-color: #393e46;
+  border-radius: 6px;
+  padding: 20px;
+  width: 80%;
+  margin-top: 20px;
+}
+
+.barGraph {
+  margin-top: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  background-color: #393e46;
+  border-radius: 6px;
+  width: 400px;
+  padding: 30px;
+}
 
 /* for heat map */
 
@@ -39,7 +59,7 @@
 
 .react-calendar-heatmap text {
   font-size: 10px;
-  fill: #aaa;
+  fill: #eeeeee;
 }
 
 .react-calendar-heatmap .react-calendar-heatmap-small-text {
@@ -108,7 +128,6 @@
 
 /* for heat map */
 
-
 /* for bar graph */
 
 .bar {
@@ -122,4 +141,3 @@
   opacity: 0.5;
 }
 /* for bar graph */
-

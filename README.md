@@ -1,3 +1,32 @@
+# Problem Tracker
+
+This app is very useful if you solve DSA or do competitive programming on a regular basis on different platforms.
+
+As it helps you track your problems and gives you a visual representation of how many problems you have solved in the past, you can also search to see if you have previously solved a particular problem or not. Additionally, you can check on which day you solved a specific number of problems.
+
+## TECHNOLOGIES USED
+
+### Frontend Tech
+
+1. HTML
+2. CSS
+3. JAVASCRIPT
+4. REACT.JS
+
+### Backend Tech
+
+1. MONGODB
+2. NODE.JS
+3. EXPRESS.JS
+
+#### Frontend Repo Link :
+
+https://github.com/abhishekvatsAV/problem-tracker-frontend
+
+#### Backend Repo Link :
+
+https://github.com/abhishekvatsAV/problem-tracker-backend
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -16,15 +45,7 @@ You may also see any lint errors in the console.
 
 ### `Color Sceme`
 
-1. Primary Color : #F0EBE3
-2. Second. Color: #E4DCCF
-3. #7D9D9C
-4. #576F72
-
-### `What to do next `
-
-1. Create the dashboard
-2. Add the functionality like codeforces
-3. also add the heat map to know which day i code and which day i dont
-4. add delete functionality only to helpUsed problems
-5. add Authentication
+1. Primary Color : #222831
+2. Second. Color: #393E46
+3. blue color: #00ADB5
+4. white color/text color : #EEEEEE

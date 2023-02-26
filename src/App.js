@@ -10,7 +10,6 @@ import Signup from "./pages/Signup";
 function App() {
   let user = localStorage.getItem("user");
   user = JSON.parse(user);
-  console.log("user : ", user);
 
   return (
     <div className="App">
@@ -21,7 +20,6 @@ function App() {
             element={
               !user ? (
                 <>
-                  <Navbar />
                   <Signup />
                 </>
               ) : (
@@ -34,7 +32,6 @@ function App() {
             element={
               !user ? (
                 <>
-                  <Navbar />
                   <Login />
                 </>
               ) : (

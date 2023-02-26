@@ -2,9 +2,13 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #576F72;
+  background-color: #222831;
   color: #fff;
   padding: 20px;
+  position: fixed;
+  top: 0;
+  z-index: 3;
+  width: 100%;
 }
 
 nav a {
@@ -15,5 +19,11 @@ nav a {
 }
 
 nav a:hover {
-  background-color: #7D9D9C;
+  color: #00adb5;
+}
+
+.logo {
+  height: 48px;
+  width: 48px;
+  border-radius: 40px;
 }

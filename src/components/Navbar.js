@@ -1,6 +1,7 @@
 import "./Navbar.css";
 import useLogout from "../hooks/useLogout";
 import { Link } from "react-router-dom";
+import { LogoutOutlined } from "@ant-design/icons";
 
 const Navbar = () => {
   const { logout } = useLogout();
@@ -14,17 +15,21 @@ const Navbar = () => {
 
   return (
     <nav>
-      <a href="/">Home</a>
+      <div className="navbarSec1">
+        <a href="/">
+          <img
+            src="https://res.cloudinary.com/dudoss6ih/image/upload/v1668326337/IMG_20210727_173654_kta1jy.jpg"
+            alt=""
+            className="logo"
+          />
+        </a>
+        <a href="/problems">Problems</a>
+        <a href="/dashboard">Dashboard</a>
+      </div>
       <div>
-        {!user && <Link to="/login">Login</Link>}
-        {!user && <Link to="/signup">Signup</Link>}
-        {user && <a href="/problems">Problems</a>}
-        {user && <a href="/dashboard">Dashboard</a>}
-        {user && (
-          <a href="/login" onClick={handleClick}>
-            Logout
-          </a>
-        )}
+        <a href="/login" onClick={handleClick}>
+          <LogoutOutlined />
+        </a>
       </div>
     </nav>
   );
