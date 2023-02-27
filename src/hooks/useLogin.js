@@ -7,7 +7,6 @@ const useLogin = () => {
   const [isLoading, setIsLoading] = useState(false);
   const apiUrl = BASE_URL;
 
-
   const logIn = async (email, password) => {
     setIsLoading(true);
     setError(null);
