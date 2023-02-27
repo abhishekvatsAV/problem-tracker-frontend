@@ -120,7 +120,14 @@ const Home = () => {
         <div className="solvedProb">
           <div className="solved_box">
             <h3>
-              Solved <span>Problems</span>{" "}
+              Solved Problems -{" "}
+              <span>
+                {selectedDate.toLocaleString("en-US", {
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
+                })}
+              </span>{" "}
             </h3>
           </div>
           <>
