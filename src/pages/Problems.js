@@ -4,6 +4,7 @@ import axios from "axios";
 import Problem from "../components/Problem";
 import { SearchOutlined, CloseOutlined } from "@ant-design/icons";
 import { Input } from "antd";
+import { BASE_URL } from "../services/helper";
 
 const Problems = () => {
   const [allProblems, setAllProblems] = useState([]);
@@ -14,7 +15,7 @@ const Problems = () => {
   const [filter3, setFilter3] = useState(helpUsedProb);
   const [searchWord, setSearchWord] = useState("");
   const [flag, setFlag] = useState(1);
-  const apiUrl = process.env.REACT_APP_API_URL;
+  const apiUrl = BASE_URL;
   const [rerender, setRerender] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 

@@ -5,10 +5,12 @@ import axios from "axios";
 import CalendarHeatmap from "react-calendar-heatmap";
 import ReactTooltip from "react-tooltip";
 import { LoadingOutlined } from "@ant-design/icons";
+import { BASE_URL } from "../services/helper";
+
 
 const Dashboard = () => {
   const today = new Date();
-  const apiUrl = process.env.REACT_APP_API_URL;
+  const apiUrl = BASE_URL;
   const [heatmapCalendarData, setHeatmapCalendarData] = useState([]);
   const [easyProblems, setEasyProblems] = useState([]);
   const [mediumPoblems, setMediumPoblems] = useState([]);

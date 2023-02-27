@@ -1,10 +1,12 @@
 import { useState } from "react";
 import axios from "axios";
+import { BASE_URL } from "../services/helper";
 
 const useLogin = () => {
   const [error, setError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const apiUrl = process.env.REACT_APP_API_URL;
+  const apiUrl = BASE_URL;
+
 
   const logIn = async (email, password) => {
     setIsLoading(true);

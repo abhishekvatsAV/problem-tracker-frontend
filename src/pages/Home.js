@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Problem from "../components/Problem";
 import { useNavigate } from "react-router-dom";
+import { BASE_URL } from "../services/helper";
 import { DatePicker } from "antd";
 
 const Home = () => {
@@ -11,7 +12,7 @@ const Home = () => {
   const [helpUsed, setHelpUsed] = useState(false);
   const [selectedDate, setselectedDate] = useState(new Date());
   const [problemArr, setProblemArr] = useState([]);
-  const apiUrl = process.env.REACT_APP_API_URL;
+  const apiUrl = BASE_URL;
   const today = new Date();
   let user = localStorage.getItem("user");
   user = JSON.parse(user);
