@@ -134,6 +134,7 @@ const Home = () => {
           <>
             {problemArr.map((problem, i) => (
               <Problem
+                key={i}
                 problem={problem}
                 handleDelete={handleDelete}
                 isLoading={isLoading}
@@ -215,7 +216,7 @@ const Home = () => {
             <input
               className="form-check-input"
               type="checkbox"
-              onClick={() =>
+              onChange={() =>
                 helpUsed ? setHelpUsed(false) : setHelpUsed(true)
               }
               checked={helpUsed}

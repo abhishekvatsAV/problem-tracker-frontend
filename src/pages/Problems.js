@@ -177,6 +177,7 @@ const Problems = () => {
               <p>{filter1.length}</p>
               {filter1.map((problem, i) => (
                 <Problem
+                  key={i}
                   problem={problem}
                   handleDelete={handleDelete}
                   isLoading={isLoading}
@@ -194,6 +195,7 @@ const Problems = () => {
               <p>{filter2.length}</p>
               {filter2.map((problem, i) => (
                 <Problem
+                  key={i}
                   problem={problem}
                   handleDelete={handleDelete}
                   isLoading={isLoading}
@@ -211,6 +213,7 @@ const Problems = () => {
               <p>{filter3.length}</p>
               {filter3.map((problem, i) => (
                 <Problem
+                  key={i}
                   problem={problem}
                   handleDelete={handleDelete}
                   isLoading={isLoading}
