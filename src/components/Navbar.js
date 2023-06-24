@@ -1,13 +1,9 @@
 import "./Navbar.css";
 import useLogout from "../hooks/useLogout";
-import { Link } from "react-router-dom";
 import { LogoutOutlined } from "@ant-design/icons";
 
 const Navbar = () => {
   const { logout } = useLogout();
-
-  let user = localStorage.getItem("user");
-  user = JSON.parse(user);
 
   const handleClick = () => {
     logout();

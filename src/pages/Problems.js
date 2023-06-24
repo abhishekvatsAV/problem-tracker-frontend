@@ -70,6 +70,7 @@ const Problems = () => {
     };
 
     getAllProb();
+    // eslint-disable-next-line
   }, [rerender]);
 
   const handleClick1 = () => {

@@ -66,6 +66,7 @@ const Dashboard = () => {
     };
     gettodayProb();
     bargraph();
+    // eslint-disable-next-line
   },[allproblems]);
 
   useEffect(() => {
@@ -140,6 +141,7 @@ const Dashboard = () => {
             map.set(date, 1);
           }
         }
+        return null;
       });
 
       let sDate = new Date();
@@ -190,6 +192,7 @@ const Dashboard = () => {
     };
 
     getAllProblems();
+    // eslint-disable-next-line
   }, []);
 
   function shiftDate(date, numDays) {

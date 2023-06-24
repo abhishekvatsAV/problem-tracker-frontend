@@ -23,6 +23,7 @@ const Home = () => {
       if (!localStorage.getItem("user")) {
         navigate("/login");
       } else {
+        // eslint-disable-next-line
         user = localStorage.getItem("user");
         user = JSON.parse(user);
       }
@@ -102,6 +103,7 @@ const Home = () => {
 
   useEffect(() => {
     handleProblems();
+    // eslint-disable-next-line
   }, [selectedDate]);
 
   const onChange = (date, dateString) => {
