@@ -13,7 +13,6 @@ const Home = () => {
   const [selectedDate, setselectedDate] = useState(new Date());
   const [problemArr, setProblemArr] = useState([]);
   const apiUrl = BASE_URL;
-  const today = new Date();
   let user = localStorage.getItem("user");
   user = JSON.parse(user);
   const navigate = useNavigate();
@@ -31,7 +30,7 @@ const Home = () => {
     check();
   }, []);
 
-  // to get all the probles done on selectedDate
+  // to get all the problems done on selectedDate
   const handleProblems = async () => {
     let date = selectedDate.toLocaleDateString();
     try {
@@ -44,6 +43,7 @@ const Home = () => {
           },
         }
       );
+
       setProblemArr(response.data);
     } catch (err) {
       console.log(err);
@@ -63,13 +63,12 @@ const Home = () => {
     };
 
     try {
-      const response = await axios.post(`${apiUrl}/problems/create`, ques, {
+      await axios.post(`${apiUrl}/problems/create`, ques, {
         headers: {
           "Content-Type": "application/json",
           authorization: `Bearer ${user.token}`,
         },
       });
-      const data = response.data;
       handleProblems();
     } catch (err) {
       console.log(err);
@@ -80,12 +79,13 @@ const Home = () => {
     setName("");
   };
 
-  const handleDelete = async (link) => {
+  const handleDelete = async (id) => {
+    
     try {
       setIsLoading(true);
       await axios.post(
         `${apiUrl}/problems/deleteProblem`,
-        { link },
+        { id },
         {
           headers: {
             "Content-Type": "application/json",
@@ -132,9 +132,10 @@ const Home = () => {
             </h3>
           </div>
           <>
-            {problemArr.map((problem, i) => (
+            {problemArr.map((problem) => (
               <Problem
-                key={i}
+                key={problem._id}
+                id={problem._id}
                 problem={problem}
                 handleDelete={handleDelete}
                 isLoading={isLoading}

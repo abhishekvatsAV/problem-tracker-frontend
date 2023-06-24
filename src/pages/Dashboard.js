@@ -7,7 +7,6 @@ import ReactTooltip from "react-tooltip";
 import { LoadingOutlined } from "@ant-design/icons";
 import { BASE_URL } from "../services/helper";
 
-
 const Dashboard = () => {
   const today = new Date();
   const apiUrl = BASE_URL;
@@ -25,121 +24,173 @@ const Dashboard = () => {
   user = JSON.parse(user);
 
   useEffect(() => {
-    const heatmapCalendarDataGen = async () => {
-      try {
-        setIsLoading(true);
-        const response = await axios.get(`${apiUrl}/problems/yeardata`, {
-          headers: {
-            "Content-Type": "application/json",
-            authorization: `Bearer ${user.token}`,
-          },
-        });
-        setIsLoading(false);
-        setHeatmapCalendarData([...response.data]);
-        // console.log("response", response.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
     const bargraph = async () => {
       try {
-        const res1 = await axios(`${apiUrl}/problems/hard`, {
-          headers: {
-            "Content-Type": "application/json",
-            authorization: `Bearer ${user.token}`,
-          },
+        // for hard problems
+        let hProblems = [...allproblems];
+        hProblems = hProblems.filter((prob) => {
+          if (prob.difficulty === "Hard") return true;
+          return false;
         });
-        const res2 = await axios(`${apiUrl}/problems/medium`, {
-          headers: {
-            "Content-Type": "application/json",
-            authorization: `Bearer ${user.token}`,
-          },
+        setHardProblems([...hProblems]);
+
+        // for medium problems
+        let mProblems = [...allproblems];
+        mProblems = mProblems.filter((prob) => {
+          if (prob.difficulty === "Medium") return true;
+          return false;
         });
-        const res3 = await axios(`${apiUrl}/problems/easy`, {
-          headers: {
-            "Content-Type": "application/json",
-            authorization: `Bearer ${user.token}`,
-          },
+        setMediumPoblems([...mProblems]);
+
+        // for easy problems
+        let eProblems = [...allproblems];
+        eProblems = eProblems.filter((prob) => {
+          if (prob.difficulty === "Easy") return true;
+          return false;
         });
-        setHardProblems([...res1.data]);
-        setMediumPoblems([...res2.data]);
-        setEasyProblems([...res3.data]);
+
+        setEasyProblems([...eProblems]);
+
       } catch (error) {
         console.log("error : ", error);
       }
     };
 
+    const gettodayProb = async () => {
+      let date = today.toLocaleDateString();
+      let todayProbs = allproblems.filter((prob) => {
+        if (prob.date === date) return true;
+        return false;
+      });
+      setTodayProblems([...todayProbs]);
+    };
+    gettodayProb();
+    bargraph();
+  },[allproblems]);
+
+  useEffect(() => {
     const getAllProblems = async () => {
-      const problems = await axios(`${apiUrl}/problems/getAllProblems`, {
+      setIsLoading(true);
+      let problems = await axios(`${apiUrl}/problems/getAllProblems`, {
         headers: {
           "Content-Type": "application/json",
           authorization: `Bearer ${user.token}`,
         },
       });
+      setIsLoading(false);
       setAllProblems([...problems.data]);
-    };
 
-    const gettodayProb = async () => {
-      let date = today.toLocaleDateString();
-      try {
-        const response = await axios.get(
-          `${apiUrl}/problems/findbydate?date=${date}`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              authorization: `Bearer ${user.token}`,
-            },
+      // for week data
+      let allweekProblems = problems.data;
+      let startWeekDate = new Date();
+      startWeekDate.setDate(startWeekDate.getDate() - 7);
+      startWeekDate = startWeekDate.getTime();
+      let currDate = new Date().getTime();
+      allweekProblems = allweekProblems.filter((prob) => {
+        let [day, month, year] = prob.date.split("/");
+        // Months in JavaScript are zero-based, so subtract 1 from the month value
+        let date = new Date(year, month - 1, day);
+        date = date.getTime();
+        if (date >= startWeekDate && date <= currDate) {
+          return true;
+        }
+        return false;
+      });
+      setWeekProblems([...allweekProblems]);
+
+      // for month data
+      let allmonthProblems = problems.data;
+      let startMonthDate = new Date();
+      startMonthDate.setDate(startMonthDate.getDate() - 30);
+      startMonthDate = startMonthDate.getTime();
+      currDate = new Date().getTime();
+      allmonthProblems = allmonthProblems.filter((prob) => {
+        let [day, month, year] = prob.date.split("/");
+        // Months in JavaScript are zero-based, so subtract 1 from the month value
+        let date = new Date(year, month - 1, day);
+        date = date.getTime();
+        if (date >= startMonthDate && date <= currDate) {
+          return true;
+        }
+        return false;
+      });
+      setMonthProblems([...allmonthProblems]);
+
+      // for year heatmap data
+      let allYearProblems = problems.data;
+      let startYearDate = new Date();
+      startYearDate.setDate(startYearDate.getDate() - 365);
+      startYearDate = startYearDate.getTime();
+
+      let finalArr = [];
+      let map = new Map();
+      allYearProblems.map((prob) => {
+        let [day, month, year] = prob.date.split("/");
+        // Months in JavaScript are zero-based, so subtract 1 from the month value
+        let date = new Date(year, month - 1, day);
+        date = date.getTime();
+
+        if (date <= currDate && date >= startYearDate) {
+          if (map.has(date)) {
+            // map[date]++;
+            let temp = map.get(date);
+            map.set(date, temp + 1);
+          } else {
+            // map[date] = 1;
+            map.set(date, 1);
           }
-        );
-        setTodayProblems([...response.data]);
-      } catch (err) {
-        console.log(err);
-      }
-    };
+        }
+      });
 
-    const monthProb = async () => {
-      try {
-        let monthPrb = await axios.get(`${apiUrl}/problems/month`, {
-          headers: {
-            "Content-Type": "application/json",
-            authorization: `Bearer ${user.token}`,
-          },
+      let sDate = new Date();
+      sDate.setDate(sDate.getDate() - 364);
+      let sdateStr = sDate.toLocaleDateString();
+      let sdateParts = sdateStr.split("/");
+      sdateStr = [
+        sdateParts[1].padStart(2, "0"),
+        sdateParts[0].padStart(2, "0"),
+        sdateParts[2],
+      ].join("/");
+
+      let eDate = new Date();
+      let edateStr = eDate.toLocaleDateString();
+      let edateParts = edateStr.split("/");
+      edateStr = [
+        edateParts[1].padStart(2, "0"),
+        edateParts[0].padStart(2, "0"),
+        edateParts[2],
+      ].join("/");
+
+      const startDate = new Date(sdateStr);
+      const endDate = new Date(edateStr);
+
+      for (
+        let date = startDate;
+        date <= endDate;
+        date.setDate(date.getDate() + 1)
+      ) {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, "0");
+        const day = String(date.getDate()).padStart(2, "0");
+        let formattedDate = `${month}/${day}/${year}`;
+        formattedDate = new Date(formattedDate).getTime();
+        if (!map.has(formattedDate)) {
+          map.set(formattedDate, 0);
+        }
+      }
+
+      for (let [key, value] of map) {
+        finalArr.push({
+          date: key,
+          count: value,
         });
-        setMonthProblems([...monthPrb.data]);
-      } catch (err) {
-        console.log(err);
       }
+
+      setHeatmapCalendarData([...finalArr]);
     };
 
-    const weekProb = async () => {
-      try {
-        let weekPrb = await axios.get(`${apiUrl}/problems/week`, {
-          headers: {
-            "Content-Type": "application/json",
-            authorization: `Bearer ${user.token}`,
-          },
-        });
-        setWeekProblems([...weekPrb.data]);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    heatmapCalendarDataGen();
-    bargraph();
     getAllProblems();
-    gettodayProb();
-    monthProb();
-    weekProb();
   }, []);
-
-  // values={[
-  //   { date: '2016-01-01', count: 12 },
-  //   { date: '2016-01-22', count: 122 },
-  //   { date: '2016-01-30', count: 38 },
-  //   // ...and so on
-  // ]}
 
   function shiftDate(date, numDays) {
     const newDate = new Date(date);
@@ -155,8 +206,8 @@ const Dashboard = () => {
           {!isLoading ? (
             <>
               <CalendarHeatmap
-                startDate={shiftDate(today, -364)}
-                endDate={today}
+                startDate={shiftDate(today, -364).getTime()}
+                endDate={today.getTime()}
                 values={heatmapCalendarData}
                 classForValue={(value) => {
                   if (!value) {

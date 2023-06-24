@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import "./Problems.css";
 import axios from "axios";
 import Problem from "../components/Problem";
-import { SearchOutlined, CloseOutlined } from "@ant-design/icons";
 import { Input } from "antd";
 import { BASE_URL } from "../services/helper";
 
@@ -45,6 +44,20 @@ const Problems = () => {
   };
 
   useEffect(() => {
+    const withHelpProblems = allProblems.filter((prob) => {
+      return prob.helpUsed === true;
+    });
+    setHelpUsedProb(withHelpProblems);
+    setFilter3(withHelpProblems);
+
+    const withoutHelpProblems = allProblems.filter((prob) => {
+      return prob.helpUsed === false;
+    });
+    setWoHelpProb(withoutHelpProblems);
+    setFilter2(withoutHelpProblems);
+  }, [allProblems]);
+
+  useEffect(() => {
     const getAllProb = async () => {
       const res = await axios.get(`${apiUrl}/problems/getAllProblems`, {
         headers: {
@@ -56,31 +69,7 @@ const Problems = () => {
       setFilter1([...res.data]);
     };
 
-    const helpProblems = async () => {
-      const res = await axios.get(`${apiUrl}/problems/withHelp`, {
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${user.token}`,
-        },
-      });
-      setHelpUsedProb([...res.data]);
-      setFilter3([...res.data]);
-    };
-
-    const withoutHelpProblems = async () => {
-      const res = await axios.get(`${apiUrl}/problems/withoutHelp`, {
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${user.token}`,
-        },
-      });
-      setWoHelpProb([...res.data]);
-      setFilter2([...res.data]);
-    };
-
     getAllProb();
-    helpProblems();
-    withoutHelpProblems();
   }, [rerender]);
 
   const handleClick1 = () => {
@@ -94,7 +83,7 @@ const Problems = () => {
   };
 
   const onSearch = (event) => {
-    const temp = event.target.value;
+    let temp = event.target.value;
     setSearchWord(temp);
     temp = temp.toLowerCase();
 

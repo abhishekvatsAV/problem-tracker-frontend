@@ -3,7 +3,7 @@ import { MdDelete } from "react-icons/md";
 import "./Problem.css";
 import { LoadingOutlined } from "@ant-design/icons";
 
-const Problem = ({ problem, handleDelete, isLoading }) => {
+const Problem = ({ problem, handleDelete, isLoading, id }) => {
   return (
     <div className="card">
       {!isLoading ? (
@@ -15,7 +15,7 @@ const Problem = ({ problem, handleDelete, isLoading }) => {
             <MdDelete
               className="deleteProblem"
               style={{ fontSize: "1.5em" }}
-              onClick={() => handleDelete(problem.link)}
+              onClick={() => handleDelete(id)}
             />
           </div>
           <ul className="cardItems">
