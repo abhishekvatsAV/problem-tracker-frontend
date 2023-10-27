@@ -11,7 +11,7 @@ const Navbar = () => {
 
   return (
     <nav>
-      <div className="navbarSec1">
+      <div className="flex items-center">
         <a href="/">
           <img
             src="https://res.cloudinary.com/dudoss6ih/image/upload/v1668326337/IMG_20210727_173654_kta1jy.jpg"

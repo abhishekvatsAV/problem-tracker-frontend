@@ -2,7 +2,11 @@ import { useState } from "react";
 import useSignup from "../hooks/useSignup";
 import { Link, useNavigate } from "react-router-dom";
 import "./Signup.css";
-import { CloseOutlined } from "@ant-design/icons";
+import {
+  CloseOutlined,
+  EyeInvisibleOutlined,
+  EyeOutlined,
+} from "@ant-design/icons";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -11,6 +15,8 @@ const Signup = () => {
   const [match, setMatch] = useState(true);
   const { signup, isLoading, error, setError } = useSignup();
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,6 +37,14 @@ const Signup = () => {
   };
   const closeError2 = () => {
     setError(null);
+  };
+
+  const handleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleShowConfirmPassword = () => {
+    setShowConfirmPassword(!showConfirmPassword);
   };
 
   return (
@@ -54,19 +68,39 @@ const Signup = () => {
             required={true}
           />
           <label htmlFor="">Password</label>
-          <input
-            type="password"
-            onChange={(e) => setPassword(e.target.value)}
-            value={password}
-            required={true}
-          />
+          <div className="!w-full flex relative">
+            <input
+              type={showPassword ? "text" : "password"}
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}
+              required={true}
+              className="w-full pr-4"
+            />
+            <div className="absolute right-2">
+              {showPassword ? (
+                <EyeOutlined onClick={handleShowPassword} />
+              ) : (
+                <EyeInvisibleOutlined onClick={handleShowPassword} />
+              )}
+            </div>
+          </div>
           <label htmlFor="">Confirm Password</label>
-          <input
-            type="password"
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            value={confirmPassword}
-            required={true}
-          />
+          <div className="w-full flex relative">
+            <input
+              type={showConfirmPassword ? "text" : "password"}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              value={confirmPassword}
+              required={true}
+              className="w-full pr-4"
+            />
+            <div className="absolute right-2">
+              {showConfirmPassword ? (
+                <EyeOutlined onClick={handleShowConfirmPassword} />
+              ) : (
+                <EyeInvisibleOutlined onClick={handleShowConfirmPassword} />
+              )}
+            </div>
+          </div>
           <button className="signupBtn" disabled={isLoading}>
             SignUp
           </button>
