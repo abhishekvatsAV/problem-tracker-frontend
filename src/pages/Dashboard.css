@@ -1,13 +1,14 @@
 .dashBoard {
   background-color: #222831;
-  padding: 87px;
+  padding: 50px;
+  padding-top: 10px;
   color: #eeeeee;
 }
 
 .flexBox {
   display: flex;
   flex-direction: column;
-  margin: 4%;
+  /* margin: 4%; */
   gap: 20px;
 }
 
@@ -40,7 +41,7 @@
 }
 
 .barGraph {
-  margin-top: 20px;
+  /* margin-top: 20px; */
   border: 1px solid rgba(0, 0, 0, 0.5);
   background-color: #393e46;
   border-radius: 6px;

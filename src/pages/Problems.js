@@ -21,13 +21,13 @@ const Problems = () => {
   let user = localStorage.getItem("user");
   user = JSON.parse(user);
 
-  const handleDelete = async (link) => {
+  const handleDelete = async (id) => {
     try {
       setIsLoading(true);
       await axios.post(
         `${apiUrl}/problems/deleteProblem`,
         {
-          link,
+          id,
         },
         {
           headers: {
@@ -66,6 +66,7 @@ const Problems = () => {
         },
       });
       setAllProblems([...res.data]);
+      console.log("res data : ", res.data);
       setFilter1([...res.data]);
     };
 
@@ -156,6 +157,7 @@ const Problems = () => {
         >
           <h4>Problems Solved Using Help</h4>
         </div>
+
         <div className="flex_prob">
           {flag === 1 && (
             <>
@@ -169,7 +171,7 @@ const Problems = () => {
                 <Problem
                   key={i}
                   problem={problem}
-                  handleDelete={handleDelete}
+                  handleDelete={() => handleDelete(problem._id)}
                   isLoading={isLoading}
                 />
               ))}
@@ -187,7 +189,7 @@ const Problems = () => {
                 <Problem
                   key={i}
                   problem={problem}
-                  handleDelete={handleDelete}
+                  handleDelete={() => handleDelete(problem._id)}
                   isLoading={isLoading}
                 />
               ))}
@@ -205,7 +207,7 @@ const Problems = () => {
                 <Problem
                   key={i}
                   problem={problem}
-                  handleDelete={handleDelete}
+                  handleDelete={() => handleDelete(problem._id)}
                   isLoading={isLoading}
                 />
               ))}

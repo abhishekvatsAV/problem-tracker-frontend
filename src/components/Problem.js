@@ -1,15 +1,19 @@
 import React from "react";
 import { MdDelete } from "react-icons/md";
-import "./Problem.css";
 import { LoadingOutlined } from "@ant-design/icons";
 
 const Problem = ({ problem, handleDelete, isLoading, id }) => {
   return (
-    <div className="card">
+    <div className=" bg-[#393e46] text-white border-solid border-[1px] border-[rgba(0,0,0,0.5)] rounded-md w-full ">
       {!isLoading ? (
-        <div className="card-body">
-          <div className="cardHead">
-            <a href={problem.link} target="_blank" rel="noreferrer">
+        <div className=" ">
+          <div className="flex justify-between bg-[#282828] p-2 ">
+            <a
+              href={problem.link}
+              target="_blank"
+              rel="noreferrer"
+              className="text-white font-bold hover:!text-[#00adb5] cursor-pointer"
+            >
               {problem.name}
             </a>
             <MdDelete
@@ -18,12 +22,22 @@ const Problem = ({ problem, handleDelete, isLoading, id }) => {
               onClick={() => handleDelete(id)}
             />
           </div>
-          <ul className="cardItems">
-            <li className="card-text">Difficulty: {problem.difficulty}</li>
-            <li className="card-text">Platform: {problem.platform}</li>
-            <li className="card-text">Topic: {problem.topic}</li>
-            <li className="card-text">
-              helpUsed: {problem.helpUsed ? "Yes" : "No"}
+          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 p-2">
+            <li>
+              <span className="font-semibold text-gray-500">Difficulty:</span>
+              {problem.difficulty}
+            </li>
+            <li>
+              <span className="font-semibold text-gray-500">Platform:</span>
+              {problem.platform}
+            </li>
+            <li>
+              <span className="font-semibold text-gray-500">Topic:</span>
+              {problem.topic}
+            </li>
+            <li>
+              <span className="font-semibold text-gray-500">helpUsed:</span>
+              {problem.helpUsed ? "Yes" : "No"}
             </li>
           </ul>
         </div>

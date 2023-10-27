@@ -10,7 +10,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav>
+    <nav className="">
       <div className="flex items-center">
         <a href="/">
           <img

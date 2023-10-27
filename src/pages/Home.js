@@ -5,6 +5,8 @@ import Problem from "../components/Problem";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../services/helper";
 import { DatePicker } from "antd";
+import { PlusCircleOutlined } from "@ant-design/icons";
+import Navbar from "../components/Navbar";
 
 const Home = () => {
   const [link, setLink] = useState("");
@@ -138,8 +140,36 @@ const Home = () => {
   }, [modalOpen]);
 
   return (
-    <div className="h-full">
-      <div className="grid grid-cols-3 min-h-full h-screen pt-20">
+    <div className="bg-[#222831] text-white">
+      <div className="flex items-center flex-col gap-5  ">
+        <DatePicker onChange={onChange} className="datePicker" />
+        <span className="text-[#00adb5] ">
+          {selectedDate.toLocaleString("en-US", {
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+          })}
+        </span>
+
+        <PlusCircleOutlined
+          className="text-3xl hover:text-[#00adb5]"
+          onClick={() => setModalOpen(true)}
+        />
+
+        <div className="overflow-scroll flex items-center flex-col gap-5 h-[550px]  mb-5 ">
+          {problemArr.map((problem) => (
+            <Problem
+              key={problem._id}
+              id={problem._id}
+              problem={problem}
+              handleDelete={() => handleDelete(problem._id)}
+              isLoading={isLoading}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* <div className="grid grid-cols-3 min-h-full h-screen pt-20">
         <div className="bg-[#222831] col-span-3 md:col-span-2">
           <div className="flex items-center box-border z-10 text-white overflow-scroll">
             <span className="m-5">
@@ -171,110 +201,20 @@ const Home = () => {
             ))}
           </div>
         </div>
-        <div className="bg-[#222831] hidden md:block col-span-1">
-          <form
-            onSubmit={handleSubmit}
-            className="fixed w-[34%] flex flex-col mt-5 mr-5 p-7 bg-[#393e46] text-white "
-          >
-            <label className="flex flex-col">
-              Name:
-              <input
-                className="form-control"
-                type="text"
-                placeholder="Enter the name of the question"
-                name="name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-              />
-            </label>
-            <label className="form-label">
-              <span>Link Of The Question:</span>
-              <input
-                type="url"
-                placeholder="Enter the Link"
-                name="link"
-                value={link}
-                onChange={(e) => setLink(e.target.value)}
-                required
-                className="form-control"
-              />
-            </label>
-            <label className="form-label">
-              <span>Difficulty: </span>
-              <select className="form-control" required name="difficultyLevel">
-                <option>Easy</option>
-                <option>Medium</option>
-                <option>Hard</option>
-              </select>
-            </label>
-            <label className="form-label">
-              <span>Platform: </span>
-              <select className="form-control" required name="platform">
-                <option>LeetCode</option>
-                <option>GFG</option>
-                <option>CodeForces</option>
-                <option>AtCoder</option>
-                <option>HackerRank</option>
-                <option>CSES</option>
-                <option>Other</option>
-              </select>
-            </label>
-            <label className="form-label">
-              Topic:
-              <select className="form-control" required name="topic">
-                <option>Arrays</option>
-                <option>Strings</option>
-                <option>2D Arrays</option>
-                <option>Searching And Sorting</option>
-                <option>Backtracking</option>
-                <option>Linked List</option>
-                <option>Stacks and Queues</option>
-                <option>Greedy</option>
-                <option>Binary Trees</option>
-                <option>Binary Search Trees</option>
-                <option>Heaps and Hashing</option>
-                <option>Graphs</option>
-                <option>Tries</option>
-                <option>DP</option>
-                <option>BinarySearch</option>
-                <option>Bit Manipulation</option>
-                <option>Recursion</option>
-                <option>Segment Tree</option>
-              </select>
-            </label>
-            <div className="form-check">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                onChange={() =>
-                  helpUsed ? setHelpUsed(false) : setHelpUsed(true)
-                }
-                checked={helpUsed}
-              />
-              Done with some external Help
-            </div>
-            <button className="btn btn-primary ">Add Question</button>
-          </form>
-        </div>
       </div>
       <button
         className="fixed right-0 top-[170px] rounded-md text-white z-50 bg-blue-400 px-2 py-1 md:hidden mr-2"
         onClick={() => setModalOpen(true)}
       >
         Add Problem
-      </button>
+      </button> */}
       {modalOpen && (
-        <>
-          <div className="fixed inset-0 bg-gray-800 opacity-50 z-40 md:hidden"></div>
-          <div className="absolute h-96 top-0 w-full z-50 md:hidden">
-            <div
-              className=" bg-[#222831] md:hidden w-full col-span-1"
-              ref={modalRef}
-            >
+        <div className="fixed top-0 left-0 z-10 h-full w-full backdrop-blur-sm flex items-center justify-center min-h-screen">
+          <div className="relative w-full flex items-center justify-center m-auto h-auto md:p-20 max-w-2xl max-h-2xl p-2">
+            <div className=" bg-[#222831] w-full col-span-1" ref={modalRef}>
               <form
                 onSubmit={handleSubmit}
-                className="fixed w-[34%] min-w-fit flex flex-col mt-5 mr-5 p-7 bg-[#393e46] text-white"
+                className=" flex flex-col bg-[#393e46] text-white p-5"
               >
                 <label className="flex flex-col ">
                   Name:
@@ -362,7 +302,7 @@ const Home = () => {
               </form>
             </div>
           </div>
-        </>
+        </div>
       )}
     </div>
   );
