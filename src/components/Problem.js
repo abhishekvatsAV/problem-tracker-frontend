@@ -13,7 +13,7 @@ const Problem = ({ problem, handleDelete, isLoading, id }) => {
               {problem.name}
             </a>
             <MdDelete
-              className="deleteProblem"
+              className="cursor-pointer hover:text-[#00adb5]"
               style={{ fontSize: "1.5em" }}
               onClick={() => handleDelete(id)}
             />
