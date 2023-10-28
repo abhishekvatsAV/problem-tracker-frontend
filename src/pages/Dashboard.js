@@ -202,9 +202,9 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="dashBoard">
+    <div className="dashBoard min-h-screen">
       <div className="flexBox">
-        <div className="heatMap">
+        <div className="heatMap md:w-[80%]">
           <h3>Year Overview</h3>
           {!isLoading ? (
             <>
@@ -241,7 +241,7 @@ const Dashboard = () => {
             </div>
           )}
         </div>
-        <div className="details">
+        <div className="details md:w-[80%]">
           <div className="item">
             <h4>{`${allproblems.length} problems`}</h4>
             <p>solved for all time</p>
@@ -262,7 +262,6 @@ const Dashboard = () => {
         <div className="barGraph">
           <h3>Difficulty Graph</h3>
           <BarList
-            style={{ width: 350 }}
             data={[
               { key: "Easy", data: easyProblems.length },
               { key: "Medium", data: mediumPoblems.length },

@@ -8,7 +8,6 @@
 .flexBox {
   display: flex;
   flex-direction: column;
-  /* margin: 4%; */
   gap: 20px;
 }
 
@@ -17,7 +16,6 @@
   grid-template-rows: repeat(2, 1fr);
   grid-template-columns: repeat(2, 1fr);
   border: 1px solid rgba(0, 0, 0, 0.5);
-  width: 80%;
   padding: 20px;
   background-color: #393e46;
   border-radius: 6px;
@@ -36,7 +34,6 @@
   background-color: #393e46;
   border-radius: 6px;
   padding: 20px;
-  width: 80%;
   margin-top: 20px;
 }
 
@@ -45,8 +42,10 @@
   border: 1px solid rgba(0, 0, 0, 0.5);
   background-color: #393e46;
   border-radius: 6px;
-  width: 400px;
+  /* width: 400px; */
+  max-width: 400px;
   padding: 30px;
+  
 }
 
 /* for heat map */

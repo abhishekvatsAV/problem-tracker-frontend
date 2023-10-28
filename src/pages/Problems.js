@@ -128,7 +128,7 @@ const Problems = () => {
   };
 
   return (
-    <div className="problemsPg">
+    <div className="problemsPg min-h-screen">
       <div className="probGrid">
         <div
           onClick={handleClick1}

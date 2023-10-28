@@ -139,7 +139,7 @@ const Home = () => {
   }, [modalOpen]);
 
   return (
-    <div className="bg-[#222831] text-white">
+    <div className="bg-[#222831] text-white min-h-screen">
       <div className="flex items-center flex-col gap-5  ">
         <DatePicker onChange={onChange} className="datePicker" />
         <span className="text-[#00adb5] ">
@@ -167,46 +167,6 @@ const Home = () => {
           ))}
         </div>
       </div>
-
-      {/* <div className="grid grid-cols-3 min-h-full h-screen pt-20">
-        <div className="bg-[#222831] col-span-3 md:col-span-2">
-          <div className="flex items-center box-border z-10 text-white overflow-scroll">
-            <span className="m-5">
-              Select <span className="text-[#00adb5]">Date </span>:{" "}
-            </span>
-            <DatePicker onChange={onChange} className="datePicker" />
-          </div>
-          <div className="sticky pl-5 top-20 z-10 bg-[#222831] text-base text-white ">
-            <h3>
-              Solved Problems -{" "}
-              <span className="text-[#00adb5] ">
-                {selectedDate.toLocaleString("en-US", {
-                  year: "numeric",
-                  month: "short",
-                  day: "numeric",
-                })}
-              </span>{" "}
-            </h3>
-          </div>
-          <div className="overflow-y-auto max-h-[550px] mt-3 ">
-            {problemArr.map((problem) => (
-              <Problem
-                key={problem._id}
-                id={problem._id}
-                problem={problem}
-                handleDelete={handleDelete}
-                isLoading={isLoading}
-              />
-            ))}
-          </div>
-        </div>
-      </div>
-      <button
-        className="fixed right-0 top-[170px] rounded-md text-white z-50 bg-blue-400 px-2 py-1 md:hidden mr-2"
-        onClick={() => setModalOpen(true)}
-      >
-        Add Problem
-      </button> */}
       {modalOpen && (
         <div className="fixed top-0 left-0 z-10 h-full w-full backdrop-blur-sm flex items-center justify-center min-h-screen">
           <div className="relative w-full flex items-center justify-center m-auto h-auto md:p-20 max-w-2xl max-h-2xl p-2">
