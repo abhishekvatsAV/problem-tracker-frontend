@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../services/helper";
 import { DatePicker } from "antd";
 import { PlusCircleOutlined } from "@ant-design/icons";
-import Navbar from "../components/Navbar";
 
 const Home = () => {
   const [link, setLink] = useState("");
