@@ -128,7 +128,7 @@ const Problems = () => {
   };
 
   return (
-    <div className="problemsPg min-h-screen">
+    <div className="problemsPg max-h-[100svh] overflow-hidden no-scrollbar ">
       <div className="probGrid">
         <div
           onClick={handleClick1}
@@ -158,9 +158,9 @@ const Problems = () => {
           <h4>Problems Solved Using Help</h4>
         </div>
 
-        <div className="flex_prob">
+        <div className="flex_prob overflow-scroll no-scrollbar max-h-[70vh]">
           {flag === 1 && (
-            <>
+            <div>
               <Input
                 placeholder="input search text"
                 onChange={onSearch}
@@ -175,10 +175,10 @@ const Problems = () => {
                   isLoading={isLoading}
                 />
               ))}
-            </>
+            </div>
           )}
           {flag === 2 && (
-            <>
+            <div>
               <Input
                 placeholder="input search text"
                 onChange={onSearch}
@@ -193,10 +193,10 @@ const Problems = () => {
                   isLoading={isLoading}
                 />
               ))}
-            </>
+            </div> 
           )}
           {flag === 3 && (
-            <>
+            <div>
               <Input
                 placeholder="input search text"
                 onChange={onSearch}
@@ -211,7 +211,7 @@ const Problems = () => {
                   isLoading={isLoading}
                 />
               ))}
-            </>
+            </div>
           )}
         </div>
       </div>

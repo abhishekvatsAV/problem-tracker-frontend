@@ -1,4 +1,3 @@
-import "./Home.css";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import Problem from "../components/Problem";
@@ -139,9 +138,15 @@ const Home = () => {
   }, [modalOpen]);
 
   return (
-    <div className="bg-[#222831] text-white min-h-screen">
+    <div className="bg-[#222831] text-white overflow-y-hidden">
       <div className="flex items-center flex-col gap-5  ">
-        <DatePicker onChange={onChange} className="datePicker" />
+        <div className="flex justify-between md:w-[324px] flex-col md:flex-row gap-3 md:gap-0 md:items-end">
+          <DatePicker onChange={onChange} className="datePicker md:w-[85%]" />
+          <PlusCircleOutlined
+            className="text-3xl hover:text-[#00adb5]"
+            onClick={() => setModalOpen(true)}
+          />
+        </div>
         <span className="text-[#00adb5] ">
           {selectedDate.toLocaleString("en-US", {
             year: "numeric",
@@ -150,12 +155,7 @@ const Home = () => {
           })}
         </span>
 
-        <PlusCircleOutlined
-          className="text-3xl hover:text-[#00adb5]"
-          onClick={() => setModalOpen(true)}
-        />
-
-        <div className="overflow-scroll flex items-center flex-col gap-5 h-[550px]  mb-5 ">
+        <div className="overflow-scroll no-scrollbar flex items-center flex-col gap-5 h-[60vh]  mb-5 ">
           {problemArr.map((problem) => (
             <Problem
               key={problem._id}

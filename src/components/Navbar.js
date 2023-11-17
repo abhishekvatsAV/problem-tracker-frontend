@@ -10,9 +10,9 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="">
+    <nav className="relative flex justify-between items-center">
       <div className="flex items-center">
-        <a href="/">
+        <a href="/" >
           <img
             src="https://res.cloudinary.com/dudoss6ih/image/upload/v1668326337/IMG_20210727_173654_kta1jy.jpg"
             alt=""
@@ -23,7 +23,7 @@ const Navbar = () => {
         <a href="/dashboard">Dashboard</a>
       </div>
       <div>
-        <a href="/login" onClick={handleClick}>
+        <a href="/login" onClick={handleClick} className="flex items-center text-3xl">
           <LogoutOutlined />
         </a>
       </div>

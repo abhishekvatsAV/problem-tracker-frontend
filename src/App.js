@@ -12,7 +12,7 @@ function App() {
   user = JSON.parse(user);
 
   return (
-    <div className="App">
+    <div className="App no-scrollbar">
       <BrowserRouter>
         <Routes>
           <Route
